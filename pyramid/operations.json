@@ -1,0 +1,213 @@
+{
+  "schemaVersion": 15,
+  "goalFacts": [
+    "UPDATE_COMPLETE"
+  ],
+  "operations": [
+    {
+      "id": "GIT_CLONE",
+      "displayName": "Clone repository",
+      "requires": [
+        "REPOSITORY_MISSING",
+        "CLONE_CONFIGURED",
+        "NO_OPERATION_ERROR"
+      ],
+      "produces": [
+        "REPOSITORY_EXISTS",
+        "WORKTREE_CLEAN",
+        "ON_TARGET_BRANCH",
+        "GIT_SYNCED_THIS_RUN",
+        "GIT_CHANGES_APPLIED"
+      ],
+      "invalidates": [
+        "REPOSITORY_MISSING"
+      ],
+      "cost": 1.2
+    },
+    {
+      "id": "GIT_COMPLETE_MERGE",
+      "displayName": "Complete staged Git merge",
+      "requires": [
+        "REPOSITORY_EXISTS",
+        "ON_TARGET_BRANCH",
+        "MERGE_IN_PROGRESS",
+        "MERGE_READY_TO_COMMIT",
+        "MERGE_COMPLETION_ALLOWED"
+      ],
+      "produces": [
+        "GIT_SYNCED_THIS_RUN",
+        "GIT_CHANGES_APPLIED",
+        "WORKTREE_CLEAN",
+        "NO_OPERATION_ERROR"
+      ],
+      "invalidates": [
+        "MERGE_IN_PROGRESS",
+        "MERGE_READY_TO_COMMIT",
+        "WORKTREE_DIRTY",
+        "GIT_UPDATE_REQUIRED",
+        "CLEAN_COMPLETED_THIS_RUN",
+        "RESTORE_COMPLETED_THIS_RUN",
+        "BUILD_COMPLETED_THIS_RUN",
+        "HEALTH_VERIFIED_THIS_RUN",
+        "ERROR:GIT_MERGE_CONFLICT",
+        "ERROR:GIT_DIVERGED",
+        "ERROR:GIT_MERGE_NOT_READY"
+      ],
+      "cost": 0.3
+    },
+    {
+      "id": "GIT_PULL_MAIN",
+      "displayName": "Git pull/merge main",
+      "requires": [
+        "REPOSITORY_EXISTS",
+        "ON_TARGET_BRANCH",
+        "WORKTREE_CLEAN",
+        "GIT_PULL_REQUIRED",
+        "NO_OPERATION_ERROR"
+      ],
+      "produces": [
+        "GIT_SYNCED_THIS_RUN"
+      ],
+      "invalidates": [
+        "GIT_PULL_REQUIRED",
+        "GIT_UPDATE_REQUIRED",
+        "GIT_DIVERGED",
+        "CLEAN_COMPLETED_THIS_RUN",
+        "RESTORE_COMPLETED_THIS_RUN",
+        "BUILD_COMPLETED_THIS_RUN",
+        "HEALTH_VERIFIED_THIS_RUN"
+      ],
+      "cost": 0.8
+    },
+    {
+      "id": "ASPIRE_STOP",
+      "displayName": "Stop target Aspire resource",
+      "requires": [
+        "GIT_SYNCED_THIS_RUN",
+        "NO_OPERATION_ERROR"
+      ],
+      "produces": [
+        "ASPIRE_STOPPED"
+      ],
+      "invalidates": [
+        "ASPIRE_RUNNING",
+        "HEALTH_VERIFIED_THIS_RUN"
+      ],
+      "cost": 0.7
+    },
+    {
+      "id": "DOTNET_CLEAN",
+      "displayName": "dotnet clean",
+      "requires": [
+        "GIT_SYNCED_THIS_RUN",
+        "ASPIRE_STOPPED",
+        "NO_OPERATION_ERROR"
+      ],
+      "produces": [
+        "CLEAN_COMPLETED_THIS_RUN"
+      ],
+      "invalidates": [
+        "BUILD_COMPLETED_THIS_RUN"
+      ],
+      "cost": 0.8
+    },
+    {
+      "id": "DOTNET_RESTORE",
+      "displayName": "dotnet restore",
+      "requires": [
+        "GIT_SYNCED_THIS_RUN",
+        "ASPIRE_STOPPED",
+        "CLEAN_COMPLETED_THIS_RUN",
+        "NO_OPERATION_ERROR"
+      ],
+      "produces": [
+        "RESTORE_COMPLETED_THIS_RUN"
+      ],
+      "invalidates": [],
+      "cost": 0.8
+    },
+    {
+      "id": "DOTNET_BUILD",
+      "displayName": "dotnet build (silent warnings)",
+      "requires": [
+        "GIT_SYNCED_THIS_RUN",
+        "ASPIRE_STOPPED",
+        "CLEAN_COMPLETED_THIS_RUN",
+        "RESTORE_COMPLETED_THIS_RUN",
+        "NO_OPERATION_ERROR"
+      ],
+      "produces": [
+        "BUILD_COMPLETED_THIS_RUN"
+      ],
+      "invalidates": [
+        "CLEAN_COMPLETED_THIS_RUN"
+      ],
+      "cost": 1.2
+    },
+    {
+      "id": "ASPIRE_START",
+      "displayName": "Request start of target Aspire resource",
+      "requires": [
+        "BUILD_COMPLETED_THIS_RUN",
+        "ASPIRE_STOPPED",
+        "NO_OPERATION_ERROR"
+      ],
+      "produces": [
+        "START_REQUESTED_THIS_RUN",
+        "SERVICE_STARTING"
+      ],
+      "invalidates": [
+        "ASPIRE_STOPPED",
+        "ASPIRE_RUNNING",
+        "SERVICE_READY_THIS_RUN",
+        "HEALTH_VERIFIED_THIS_RUN"
+      ],
+      "cost": 0.8
+    },
+    {
+      "id": "WAIT_SERVICE_READY",
+      "displayName": "Wait for service readiness (adaptive)",
+      "requires": [
+        "SERVICE_STARTING",
+        "NO_OPERATION_ERROR"
+      ],
+      "produces": [
+        "ASPIRE_RUNNING",
+        "SERVICE_READY_THIS_RUN"
+      ],
+      "invalidates": [
+        "SERVICE_STARTING"
+      ],
+      "cost": 0.35
+    },
+    {
+      "id": "HEALTH_CHECK",
+      "displayName": "Verify stabilized health",
+      "requires": [
+        "ASPIRE_RUNNING",
+        "SERVICE_READY_THIS_RUN",
+        "NO_OPERATION_ERROR"
+      ],
+      "produces": [
+        "HEALTH_VERIFIED_THIS_RUN",
+        "UPDATE_COMPLETE"
+      ],
+      "invalidates": [],
+      "cost": 0.4
+    },
+    {
+      "id": "WAIT_NETWORK",
+      "displayName": "Wait for network and retry",
+      "requires": [
+        "ERROR:GIT_NETWORK"
+      ],
+      "produces": [
+        "NO_OPERATION_ERROR"
+      ],
+      "invalidates": [
+        "ERROR:GIT_NETWORK"
+      ],
+      "cost": 0.5
+    }
+  ]
+}

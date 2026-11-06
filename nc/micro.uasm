@@ -1,0 +1,694 @@
+; Эталонный микрокод neurocpu. Сеть учится ему по трассам; в рантайме этого файла нет.
+; Формат:  метка:   ОП a b | условие:цель ... else:цель   (условия читают состояние ДО операции)
+; T0..T2 аргументы, T3 результат, T4 остаток, T5,T8 живут через div, T9 PC, T10 RUN, T11 указатель PROG.
+; RAM: 0..7 пользовательские R0..R7, 8..10 аргументы, 11..13 их виды, 64.. программа (по 7 слов).
+
+main:      RST
+           LDI T10 0
+           LDI T11 0
+line:      RST
+           LDI T10 0
+           RX
+line2:     NOP | '\n':line3 '\r':line3 ' ':line3 DIG:calc_go '(':calc_go '-':calc_go %TRIE% else:err
+line3:     RX | else:line2
+
+; ---- разбор аргументов: T4 = код операции
+cmd_args:  LDI T8 8
+           LDI T5 0
+           ST T8 T5
+           INC T8
+           ST T8 T5
+           INC T8
+           ST T8 T5
+           INC T8
+           ST T8 T5
+           INC T8
+           ST T8 T5
+           INC T8
+           ST T8 T5
+           LDI T6 0
+a_loop:    NOP | ' ':a_sp '\r':a_sp '\n':a_done DIG:a_num 'R':a_reg 'r':a_reg '-':a_neg else:err
+a_sp:      RX | else:a_loop
+a_num:     CALL num
+           LDI T7 0
+           GOTO a_store
+a_neg:     RX
+           NOP | DIG:a_neg2 else:err
+a_neg2:    CALL num
+           NEG T5
+           LDI T7 0
+           GOTO a_store
+a_reg:     RX
+           NOP | '0':a_r2 '1':a_r2 '2':a_r2 '3':a_r2 '4':a_r2 '5':a_r2 '6':a_r2 '7':a_r2 else:err
+a_r2:      GETC T5
+           LDI T7 48
+           SUB T5 T7
+           LDI T7 1
+           RX
+a_store:   LDI T8 3
+           CMP T6 T8
+           NOP | Z:err
+           LDI T8 8
+           ADD T8 T6
+           ST T8 T5
+           LDI T8 3
+           ADD T8 T6
+           LDI T5 8
+           ADD T8 T5
+           ST T8 T7
+           INC T6
+           GOTO a_loop
+a_done:    NOP | T11!=0:st_ins else:exec
+
+; ---- PROG: запись команды в память
+st_ins:    ST T11 T4
+           INC T11
+           LDI T6 8
+st_l:      LD T5 T6
+           ST T11 T5
+           INC T11
+           INC T6
+           LDI T8 14
+           CMP T6 T8
+           NOP | NZ:st_l else:line_noreset
+line_noreset: RX | else:line2p
+line2p:    NOP | '\n':line_noreset '\r':line_noreset ' ':line_noreset %TRIE% else:err
+
+cmd_prog:  LDI T11 64
+           GOTO ok
+cmd_end:   LDI T4 0
+           ST T11 T4
+           LDI T11 0
+           GOTO ok
+ok:        TXC 'O'
+           TXC 'K'
+           TXC '\n'
+           GOTO next
+cmd_run:   LDI T9 64
+           LDI T10 1
+fetch:     LD T4 T9
+           INC T9
+           LDI T6 8
+f_l:       LD T5 T9
+           ST T6 T5
+           INC T9
+           INC T6
+           LDI T8 14
+           CMP T6 T8
+           NOP | NZ:f_l
+
+; ---- выполнение: подстановка регистров и декодирование кода операции
+exec:      LDI T8 8
+           LD T0 T8
+           LDI T8 11
+           LD T5 T8
+           NOP | T5=0:e1
+           LD T0 T0
+e1:        LDI T8 9
+           LD T1 T8
+           LDI T8 12
+           LD T5 T8
+           NOP | T5=0:e2
+           LD T1 T1
+e2:        LDI T8 10
+           LD T2 T8
+           LDI T8 13
+           LD T5 T8
+           NOP | T5=0:e3
+           LD T2 T2
+e3:        SETC T4
+           NOP | %DISPATCH% else:err_x
+
+done:      LDI T8 11
+           LD T5 T8
+           NOP | T5=0:done2
+           LDI T8 8
+           LD T5 T8
+           ST T5 T3
+done2:     NOP | T10!=0:fetch else:print
+print:     CALL pr
+           GOTO next
+next:      NOP | T10!=0:fetch else:line
+
+; ---- ошибки
+err_x:     LDI T8 10
+           SETC T8
+err:       RST
+           LDI T10 0
+           LDI T11 0
+           TXC 'E'
+           TXC 'R'
+           TXC 'R'
+           TXC '\n'
+skip:      NOP | '\n':line
+           RX | else:skip
+
+; ---- команды CPU
+op_halt:   LDI T10 0
+           GOTO ok
+op_set:    MOV T3 T1
+           GOTO done
+op_print:  MOV T3 T0
+           CALL pr
+           GOTO next
+op_jmp:    MOV T1 T0
+           GOTO jump
+op_jz:     NOP | T0=0:jump else:next
+op_jnz:    NOP | T0!=0:jump else:next
+op_jlt:    CMP T0 T1
+           MOV T1 T2
+           NOP | N:jump else:next
+jump:      NOP | T10=0:next
+           MOV T9 T1
+           SHL T9
+           SHL T9
+           SHL T9
+           SUB T9 T1
+           LDI T5 64
+           ADD T9 T5
+           GOTO fetch
+op_add:    MOV T3 T0
+           ADD T3 T1
+           GOTO done
+op_sub:    MOV T3 T0
+           SUB T3 T1
+           GOTO done
+
+; ---- печать десятичного числа
+pr:        MOV T3 T3
+           NOP | Z:pr0 NN:pr1
+           TXC '-'
+           NEG T3
+pr1:       LDI T7 0
+pr2:       MOV T0 T3
+           LDI T1 10
+           CALL udiv
+           LDI T1 48
+           ADD T0 T1
+           PUSH T0
+           INC T7
+           MOV T3 T3
+           NOP | NZ:pr2
+pr3:       POP T0
+           TX T0
+           DEC T7
+           NOP | NZ:pr3
+           TXC '\n'
+           RET
+pr0:       TXC '0'
+           TXC '\n'
+           RET
+
+; ---- чтение числа: C первая цифра, T5 результат
+num:       LDI T5 0
+num1:      GETC T7
+           LDI T8 48
+           SUB T7 T8
+           MOV T8 T5
+           SHL T5
+           SHL T5
+           ADD T5 T8
+           SHL T5
+           ADD T5 T7
+           RX
+           NOP | DIG:num1
+           RET
+
+; ---- деление без знака сдвигами и вычитанием: T0/T1 -> T3, остаток T0
+udiv:      LDI T3 0
+           LDI T2 1
+ud1:       CMP T1 T0
+           NOP | N:ud2 Z:ud2 else:ud3
+ud2:       SHL T1
+           SHL T2
+           MOV T1 T1
+           NOP | NN:ud1
+           SHR T1
+           SHR T2
+ud3:       NOP | T2=0:ud9
+           CMP T0 T1
+           NOP | N:ud4
+           SUB T0 T1
+           ADD T3 T2
+ud4:       SHR T1
+           SHR T2 | else:ud3
+ud9:       RET
+
+; ---- этап 2: калькулятор
+mul:       LDI T3 0
+mu1:       NOP | T1=0:mu9
+           NOP | T1even:mu2
+           ADD T3 T0
+mu2:       SHL T0
+           SHR T1 | else:mu1
+mu9:       RET
+
+div:       NOP | T1=0:err_x
+           LDI T6 0
+           LDI T7 0
+           MOV T0 T0
+           NOP | NN:d1
+           NEG T0
+           INC T6
+           INC T7
+d1:        MOV T1 T1
+           NOP | NN:d2
+           NEG T1
+           INC T6
+d2:        CALL udiv
+           MOV T4 T0
+           NOP | T6even:d3
+           NEG T3
+d3:        NOP | T7=0:d4
+           NEG T4
+d4:        RET
+
+op_mul:    CALL mul
+           GOTO done
+op_div:    CALL div
+           GOTO done
+op_mod:    CALL div
+           MOV T3 T4
+           GOTO done
+op_abs:    MOV T3 T0
+           NOP | N:ab1 else:done
+ab1:       MOV T3 T0
+           MOV T3 T3
+           NOP | NN:done
+           NEG T3
+           GOTO done
+op_min:    MOV T3 T0
+           CMP T0 T1
+           NOP | N:done
+           MOV T3 T1
+           GOTO done
+op_max:    MOV T3 T0
+           CMP T1 T0
+           NOP | N:done
+           MOV T3 T1
+           GOTO done
+op_pow:    CALL pow
+           GOTO done
+
+pow:       MOV T1 T1
+           NOP | N:err_x
+           MOV T5 T0
+           MOV T8 T1
+           LDI T3 1
+pw1:       NOP | T8=0:pw9
+           NOP | T8even:pw2
+           MOV T0 T3
+           MOV T1 T5
+           CALL mul
+pw2:       PUSH T3
+           MOV T0 T5
+           MOV T1 T5
+           CALL mul
+           MOV T5 T3
+           POP T3
+           SHR T8 | else:pw1
+pw9:       RET
+
+; ---- выражения: рекурсивный спуск по символам порта
+cmd_calc:  NOP | ' ':calc_sp else:calc_go
+calc_sp:   RX | else:cmd_calc
+calc_go:   CALL expr
+           NOP | '\n':calc_end '\r':calc_cr else:err
+calc_cr:   RX
+           NOP | '\n':calc_end else:err
+calc_end:  GOTO print
+
+ws:        NOP | ' ':ws1 else:ws2
+ws1:       RX | else:ws
+ws2:       RET
+
+expr:      CALL term
+ex1:       NOP | '+':ex_a '-':ex_s else:ex9
+ex_a:      PUSH T3
+           RX
+           CALL term
+           POP T0
+           ADD T3 T0 | else:ex1
+ex_s:      PUSH T3
+           RX
+           CALL term
+           POP T0
+           SUB T0 T3
+           MOV T3 T0 | else:ex1
+ex9:       RET
+
+term:      CALL unary
+te1:       NOP | '*':te_m '/':te_d '%':te_r else:te9
+te_m:      PUSH T3
+           RX
+           CALL unary
+           MOV T1 T3
+           POP T0
+           CALL mul
+           GOTO te1
+te_d:      PUSH T3
+           RX
+           CALL unary
+           MOV T1 T3
+           POP T0
+           CALL div
+           GOTO te1
+te_r:      PUSH T3
+           RX
+           CALL unary
+           MOV T1 T3
+           POP T0
+           CALL div
+           MOV T3 T4
+           GOTO te1
+te9:       RET
+
+unary:     CALL ws
+           NOP | '-':un_n else:power
+un_n:      RX
+           CALL unary
+           NEG T3
+           RET
+power:     CALL atom
+           NOP | '^':po_e else:po9
+po_e:      PUSH T3
+           RX
+           CALL unary
+           MOV T1 T3
+           POP T0
+           CALL pow
+po9:       RET
+
+atom:      NOP | DIG:at_n '(':at_p else:err
+at_n:      CALL num
+           MOV T3 T5
+           CALL ws
+           RET
+at_p:      RX
+           CALL expr
+           NOP | ')':at_c else:err
+at_c:      RX
+           CALL ws
+           RET
+
+; ---- этап 3: теория чисел и последовательности
+gcd:       MOV T0 T0
+           NOP | NN:g1
+           NEG T0
+g1:        MOV T1 T1
+           NOP | NN:g2
+           NEG T1
+g2:        NOP | T1=0:g9
+           PUSH T1
+           CALL div
+           POP T0
+           MOV T1 T4 | else:g2
+g9:        MOV T3 T0
+           RET
+op_gcd:    CALL gcd
+           GOTO done
+op_lcm:    PUSH T0
+           PUSH T1
+           CALL gcd
+           POP T1
+           POP T0
+           NOP | T3=0:done
+           PUSH T1
+           MOV T1 T3
+           CALL div
+           POP T1
+           MOV T0 T3
+           CALL mul
+           GOTO ab_t3
+ab_t3:     MOV T3 T3
+           NOP | NN:done
+           NEG T3
+           GOTO done
+op_fact:   MOV T5 T0
+           NOP | N:op_fact_e else:op_fact_0
+op_fact_e: GOTO err_x
+op_fact_0: MOV T5 T5
+           NOP | N:err_x
+           LDI T3 1
+fa1:       NOP | T5=0:done
+           MOV T0 T3
+           MOV T1 T5
+           CALL mul
+           DEC T5 | else:fa1
+op_fib:    MOV T1 T0
+           MOV T1 T1
+           NOP | N:err_x
+           LDI T3 0
+           LDI T5 1
+fi1:       NOP | T1=0:done
+           MOV T8 T5
+           ADD T5 T3
+           MOV T3 T8
+           DEC T1 | else:fi1
+op_isqrt:  MOV T0 T0
+           NOP | N:err_x
+           LDI T1 1
+is1:       MOV T2 T1
+           SHL T1
+           SHL T1
+           NOP | T1=0:is2
+           CMP T1 T0
+           NOP | N:is1 Z:is1 else:is3
+is2:       MOV T1 T2
+is3:       LDI T3 0
+is4:       NOP | T1=0:done
+           MOV T2 T3
+           ADD T2 T1
+           CMP T0 T2
+           NOP | N:is5
+           SUB T0 T2
+           SHR T3
+           ADD T3 T1
+           GOTO is6
+is5:       SHR T3
+is6:       SHR T1
+           SHR T1 | else:is4
+op_prime:  CALL prime
+           GOTO done
+prime:     LDI T3 0
+           LDI T1 2
+           CMP T0 T1
+           NOP | N:pr_r Z:pr_y T0even:pr_r
+           MOV T5 T0
+           LDI T8 3
+pr_l:      MOV T0 T5
+           MOV T1 T8
+           CALL div
+           NOP | T4=0:pr_m
+           CMP T3 T8
+           NOP | N:pr_y
+           INC T8
+           INC T8 | else:pr_l
+pr_m:      CMP T5 T8
+           NOP | Z:pr_y
+           LDI T3 0
+pr_r:      RET
+pr_y:      LDI T3 1
+           RET
+
+; ---- этап 4: сложная математика
+mm:        LDI T3 0
+mm1:       NOP | T1=0:mm9
+           NOP | T1even:mm2
+           ADD T3 T0
+           CMP T3 T2
+           NOP | N:mm2
+           SUB T3 T2
+mm2:       ADD T0 T0
+           CMP T0 T2
+           NOP | N:mm3
+           SUB T0 T2
+mm3:       SHR T1 | else:mm1
+mm9:       RET
+
+op_modpow: MOV T1 T1
+           NOP | N:err_x
+           MOV T2 T2
+           NOP | N:err_x Z:err_x
+           MOV T8 T1
+           PUSH T2
+           MOV T1 T2
+           CALL div
+           POP T2
+           MOV T4 T4
+           NOP | NN:mp1
+           ADD T4 T2
+mp1:       MOV T5 T4
+           LDI T3 1
+           CMP T3 T2
+           NOP | N:mp2
+           LDI T3 0
+           GOTO done
+mp2:       NOP | T8=0:done
+           NOP | T8even:mp3
+           MOV T0 T3
+           MOV T1 T5
+           CALL mm
+mp3:       PUSH T3
+           MOV T0 T5
+           MOV T1 T5
+           CALL mm
+           MOV T5 T3
+           POP T3
+           SHR T8 | else:mp2
+
+op_ncr:    LDI T3 0
+           MOV T1 T1
+           NOP | N:done
+           CMP T0 T1
+           NOP | N:done
+           MOV T5 T0
+           SUB T5 T1
+           CMP T5 T1
+           NOP | NN:nc1
+           MOV T2 T5
+           MOV T5 T1
+           MOV T1 T2
+nc1:       PUSH T1
+           LDI T3 1
+           LDI T8 1
+nc2:       POP T1
+           PUSH T1
+           CMP T1 T8
+           NOP | N:nc9
+           MOV T0 T3
+           MOV T1 T5
+           ADD T1 T8
+           CALL mul
+           MOV T0 T3
+           MOV T1 T8
+           CALL div
+           INC T8 | else:nc2
+nc9:       POP T1
+           GOTO done
+
+op_nprime: MOV T0 T0
+           NOP | N:err_x Z:err_x
+           MOV T4 T0
+           LDI T0 1
+np1:       INC T0
+           PUSH T4
+           PUSH T0
+           CALL prime
+           POP T0
+           POP T4
+           NOP | T3=0:np1
+           DEC T4
+           NOP | NZ:np1
+           MOV T3 T0
+           GOTO done
+
+op_phi:    MOV T0 T0
+           NOP | N:err_x Z:err_x
+           MOV T5 T0
+           PUSH T0
+           LDI T8 2
+ph1:       MOV T0 T8
+           MOV T1 T8
+           CALL mul
+           CMP T5 T3
+           NOP | N:ph6
+           MOV T0 T5
+           MOV T1 T8
+           CALL div
+           NOP | T4!=0:ph5
+ph2:       MOV T0 T5
+           MOV T1 T8
+           CALL div
+           NOP | T4!=0:ph3
+           MOV T5 T3
+           GOTO ph2
+ph3:       POP T0
+           PUSH T0
+           MOV T1 T8
+           CALL div
+           POP T0
+           SUB T0 T3
+           PUSH T0
+ph5:       INC T8 | else:ph1
+ph6:       LDI T1 1
+           CMP T1 T5
+           NOP | NN:ph7
+           POP T0
+           PUSH T0
+           MOV T1 T5
+           CALL div
+           POP T0
+           SUB T0 T3
+           PUSH T0
+ph7:       POP T3
+           GOTO done
+
+op_digsum: MOV T0 T0
+           NOP | NN:ds0
+           NEG T0
+ds0:       LDI T5 0
+ds1:       LDI T1 10
+           CALL udiv
+           ADD T5 T0
+           MOV T0 T3
+           NOP | T3!=0:ds1
+           MOV T3 T5
+           GOTO done
+
+op_collatz: MOV T0 T0
+           NOP | N:err_x Z:err_x
+           LDI T3 0
+           LDI T1 1
+co1:       CMP T0 T1
+           NOP | Z:done
+           INC T3
+           NOP | T0even:co2
+           MOV T2 T0
+           ADD T0 T0
+           ADD T0 T2
+           INC T0
+           GOTO co1
+co2:       SHR T0 | else:co1
+
+op_modinv: MOV T1 T1
+           NOP | N:err_x Z:err_x
+           PUSH T1
+           MOV T8 T1
+           CALL div
+           MOV T4 T4
+           NOP | NN:mi0
+           POP T1
+           ADD T4 T1
+           PUSH T1
+mi0:       MOV T5 T8
+           MOV T8 T4
+           LDI T0 0
+           PUSH T0
+           LDI T0 1
+           PUSH T0
+mi1:       NOP | T8=0:mi8
+           MOV T0 T5
+           MOV T1 T8
+           CALL div
+           MOV T5 T8
+           MOV T8 T4
+           POP T1
+           POP T0
+           PUSH T1
+           PUSH T0
+           MOV T0 T3
+           CALL mul
+           POP T0
+           SUB T0 T3
+           PUSH T0 | else:mi1
+mi8:       POP T1
+           POP T3
+           POP T0
+           LDI T1 1
+           CMP T5 T1
+           NOP | NZ:err_x
+           MOV T3 T3
+           NOP | NN:done
+           ADD T3 T0
+           GOTO done

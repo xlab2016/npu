@@ -1,0 +1,132 @@
+; сгенерировано из программ, найденных по примерам
+z_MUL:
+zl_MUL:
+  NOP | T0=0:ze_MUL
+  NOP | T0even:zs_MUL_1
+  ADD T3 T1
+zs_MUL_1:
+  NOP
+  SHL T1
+zs_MUL_2:
+  NOP
+  SHR T0
+zs_MUL_3:
+  NOP
+  GOTO zl_MUL
+ze_MUL:
+  NOP
+  RET
+z_POPCOUNT:
+zl_POPCOUNT:
+  NOP | T0=0:ze_POPCOUNT
+  NOP | T0even:zs_POPCOUNT_1
+  INC T3
+zs_POPCOUNT_1:
+  NOP
+  SHR T0
+zs_POPCOUNT_2:
+  NOP
+  GOTO zl_POPCOUNT
+ze_POPCOUNT:
+  NOP
+  RET
+z_ILOG2:
+zl_ILOG2:
+  NOP | T0=0:ze_ILOG2
+  SHR T0
+zs_ILOG2_1:
+  NOP
+  NOP | T0=0:zs_ILOG2_2
+  INC T3
+zs_ILOG2_2:
+  NOP
+  GOTO zl_ILOG2
+ze_ILOG2:
+  NOP
+  RET
+z_SUMTO:
+zl_SUMTO:
+  NOP | T0=0:ze_SUMTO
+  ADD T3 T0
+zs_SUMTO_1:
+  NOP
+  DEC T0
+zs_SUMTO_2:
+  NOP
+  GOTO zl_SUMTO
+ze_SUMTO:
+  NOP
+  RET
+z_FACT:
+  INC T3
+zs_FACT_1:
+  NOP
+zl_FACT:
+  NOP | T0=0:ze_FACT
+  PUSH T0
+  PUSH T1
+  PUSH T2
+  PUSH T3
+  PUSH T3
+  PUSH T0
+  POP T1
+  POP T0
+  LDI T2 0
+  LDI T3 0
+  CALL z_MUL
+  MOV T4 T3
+  POP T3
+  POP T2
+  POP T1
+  POP T0
+  MOV T3 T4
+zs_FACT_2:
+  NOP
+  DEC T0
+zs_FACT_3:
+  NOP
+  GOTO zl_FACT
+ze_FACT:
+  NOP
+  RET
+tx0: RX
+  LDI T4 31
+  GOTO cmd_args
+zop0: LDI T3 0
+  LDI T2 0
+  CALL z_MUL
+  GOTO done
+tx1: RX
+  LDI T4 32
+  GOTO cmd_args
+zop1: LDI T3 0
+  LDI T2 0
+  LDI T1 0
+  CALL z_POPCOUNT
+  GOTO done
+tx2: RX
+  LDI T4 33
+  GOTO cmd_args
+zop2: LDI T3 0
+  LDI T2 0
+  LDI T1 0
+  CALL z_ILOG2
+  GOTO done
+tx3: RX
+  LDI T4 34
+  GOTO cmd_args
+zop3: LDI T3 0
+  LDI T2 0
+  LDI T1 0
+  CALL z_SUMTO
+  GOTO done
+tx4: RX
+  LDI T4 35
+  GOTO cmd_args
+zop4: LDI T3 0
+  LDI T2 0
+  LDI T1 0
+  CALL z_FACT
+  GOTO done
+tx: RX
+  NOP | 'A':tx0 'a':tx0 'B':tx1 'b':tx1 'C':tx2 'c':tx2 'D':tx3 'd':tx3 'E':tx4 'e':tx4 else:err

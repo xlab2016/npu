@@ -1,0 +1,25 @@
+{
+  "projects": [
+    {
+      "id": "ticketing",
+      "displayName": "Ticketing Aspire",
+      "repositoryPath": "C:\\dev\\tiketcore",
+      "cloneUrl": "https://github.com/eremakar/tiketcore",
+      "gitRemote": "origin",
+      "gitBranch": "main",
+      "buildTargetPath": "c:\\dev\\tiketcore\\src\\Ticketing.sln",
+      "aspireAppHostProjectPath": "C:\\dev\\tiketcore\\src\\Ticketing.Host\\Ticketing.Host.csproj",
+      "workingDirectory": "C:\\dev\\tiketcore\\src\\Ticketing",
+      "configuration": "Release",
+      "processMatchToken": "Ticketing.Host.csproj",
+      "healthUrl": "http://localhost:20088/api/v1/health",
+      "healthTimeoutSeconds": 90,
+      "allowInvalidHealthTlsCertificate": false,
+      "environment": {
+        "DOTNET_ENVIRONMENT": "Development"
+      },
+      "targetResourceName": "Ticketing",
+      "targetProjectPath": ""
+    }
+  ]
+}

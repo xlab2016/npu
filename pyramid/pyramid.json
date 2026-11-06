@@ -1,0 +1,1780 @@
+{
+ "rep": [
+  {
+   "name": "AND",
+   "level": 0,
+   "neurons": 6,
+   "rows": 3,
+   "states": 3,
+   "rounds": 3,
+   "sec": 1.21,
+   "calls": [
+    "lv"
+   ]
+  },
+  {
+   "name": "OR",
+   "level": 0,
+   "neurons": 6,
+   "rows": 3,
+   "states": 3,
+   "rounds": 2,
+   "sec": 0.3,
+   "calls": [
+    "lv"
+   ]
+  },
+  {
+   "name": "XOR",
+   "level": 0,
+   "neurons": 6,
+   "rows": 3,
+   "states": 3,
+   "rounds": 3,
+   "sec": 0.5,
+   "calls": [
+    "lv"
+   ]
+  },
+  {
+   "name": "ADD",
+   "level": 0,
+   "neurons": 6,
+   "rows": 3,
+   "states": 3,
+   "rounds": 2,
+   "sec": 0.32,
+   "calls": [
+    "lv"
+   ]
+  },
+  {
+   "name": "SUB",
+   "level": 0,
+   "neurons": 6,
+   "rows": 3,
+   "states": 3,
+   "rounds": 3,
+   "sec": 0.51,
+   "calls": [
+    "lv"
+   ]
+  },
+  {
+   "name": "SHL",
+   "level": 0,
+   "neurons": 6,
+   "rows": 3,
+   "states": 3,
+   "rounds": 2,
+   "sec": 0.33,
+   "calls": [
+    "lv"
+   ]
+  },
+  {
+   "name": "SHR",
+   "level": 0,
+   "neurons": 6,
+   "rows": 3,
+   "states": 3,
+   "rounds": 3,
+   "sec": 0.45,
+   "calls": [
+    "lv"
+   ]
+  },
+  {
+   "name": "LT",
+   "level": 0,
+   "neurons": 6,
+   "rows": 3,
+   "states": 3,
+   "rounds": 3,
+   "sec": 0.45,
+   "calls": [
+    "lv"
+   ]
+  },
+  {
+   "name": "EQ",
+   "level": 0,
+   "neurons": 6,
+   "rows": 3,
+   "states": 3,
+   "rounds": 2,
+   "sec": 0.3,
+   "calls": [
+    "lv"
+   ]
+  },
+  {
+   "name": "GET",
+   "level": 0,
+   "neurons": 6,
+   "rows": 3,
+   "states": 3,
+   "rounds": 2,
+   "sec": 0.3,
+   "calls": [
+    "lv"
+   ]
+  },
+  {
+   "name": "LEN",
+   "level": 0,
+   "neurons": 6,
+   "rows": 4,
+   "states": 4,
+   "rounds": 2,
+   "sec": 0.34,
+   "calls": [
+    "lv"
+   ]
+  },
+  {
+   "name": "INC",
+   "level": 1,
+   "neurons": 6,
+   "rows": 4,
+   "states": 4,
+   "rounds": 2,
+   "sec": 0.33,
+   "calls": [
+    "ADD",
+    "lv"
+   ]
+  },
+  {
+   "name": "DEC",
+   "level": 1,
+   "neurons": 6,
+   "rows": 4,
+   "states": 4,
+   "rounds": 2,
+   "sec": 0.28,
+   "calls": [
+    "SUB",
+    "lv"
+   ]
+  },
+  {
+   "name": "MIN",
+   "level": 1,
+   "neurons": 6,
+   "rows": 6,
+   "states": 7,
+   "rounds": 3,
+   "sec": 0.44,
+   "calls": [
+    "LT",
+    "lv"
+   ]
+  },
+  {
+   "name": "MAX",
+   "level": 1,
+   "neurons": 6,
+   "rows": 6,
+   "states": 7,
+   "rounds": 3,
+   "sec": 0.52,
+   "calls": [
+    "LT",
+    "lv"
+   ]
+  },
+  {
+   "name": "MUL",
+   "level": 1,
+   "neurons": 6,
+   "rows": 10,
+   "states": 12,
+   "rounds": 4,
+   "sec": 0.6,
+   "calls": [
+    "ADD",
+    "SHL",
+    "SHR",
+    "lv"
+   ]
+  },
+  {
+   "name": "UMOD",
+   "level": 1,
+   "neurons": 6,
+   "rows": 27,
+   "states": 32,
+   "rounds": 5,
+   "sec": 0.93,
+   "calls": [
+    "LT",
+    "SHL",
+    "SHR",
+    "SUB",
+    "lv"
+   ]
+  },
+  {
+   "name": "UDIV",
+   "level": 1,
+   "neurons": 6,
+   "rows": 30,
+   "states": 35,
+   "rounds": 6,
+   "sec": 1.14,
+   "calls": [
+    "ADD",
+    "LT",
+    "SHL",
+    "SHR",
+    "SUB",
+    "lv"
+   ]
+  },
+  {
+   "name": "NEG",
+   "level": 1,
+   "neurons": 6,
+   "rows": 4,
+   "states": 4,
+   "rounds": 2,
+   "sec": 0.29,
+   "calls": [
+    "SUB",
+    "lv"
+   ]
+  },
+  {
+   "name": "ABS",
+   "level": 2,
+   "neurons": 6,
+   "rows": 8,
+   "states": 9,
+   "rounds": 3,
+   "sec": 0.53,
+   "calls": [
+    "LT",
+    "NEG",
+    "lv"
+   ]
+  },
+  {
+   "name": "SQUARE",
+   "level": 2,
+   "neurons": 6,
+   "rows": 3,
+   "states": 3,
+   "rounds": 3,
+   "sec": 0.52,
+   "calls": [
+    "MUL",
+    "lv"
+   ]
+  },
+  {
+   "name": "POW",
+   "level": 2,
+   "neurons": 6,
+   "rows": 10,
+   "states": 12,
+   "rounds": 4,
+   "sec": 0.66,
+   "calls": [
+    "MUL",
+    "SHR",
+    "lv"
+   ]
+  },
+  {
+   "name": "GCD",
+   "level": 2,
+   "neurons": 6,
+   "rows": 7,
+   "states": 8,
+   "rounds": 3,
+   "sec": 0.46,
+   "calls": [
+    "UMOD",
+    "lv"
+   ]
+  },
+  {
+   "name": "FACT",
+   "level": 2,
+   "neurons": 6,
+   "rows": 7,
+   "states": 8,
+   "rounds": 4,
+   "sec": 0.62,
+   "calls": [
+    "DEC",
+    "MUL",
+    "lv"
+   ]
+  },
+  {
+   "name": "FIB",
+   "level": 2,
+   "neurons": 6,
+   "rows": 10,
+   "states": 11,
+   "rounds": 3,
+   "sec": 0.46,
+   "calls": [
+    "ADD",
+    "DEC",
+    "lv"
+   ]
+  },
+  {
+   "name": "DIGSUM",
+   "level": 2,
+   "neurons": 6,
+   "rows": 10,
+   "states": 11,
+   "rounds": 3,
+   "sec": 0.46,
+   "calls": [
+    "ADD",
+    "UDIV",
+    "UMOD",
+    "lv"
+   ]
+  },
+  {
+   "name": "ISQRT",
+   "level": 2,
+   "neurons": 6,
+   "rows": 10,
+   "states": 11,
+   "rounds": 5,
+   "sec": 0.75,
+   "calls": [
+    "INC",
+    "LT",
+    "SQUARE",
+    "lv"
+   ]
+  },
+  {
+   "name": "COLLATZ",
+   "level": 2,
+   "neurons": 6,
+   "rows": 15,
+   "states": 17,
+   "rounds": 4,
+   "sec": 0.7,
+   "calls": [
+    "EQ",
+    "INC",
+    "MUL",
+    "SHR",
+    "lv"
+   ]
+  },
+  {
+   "name": "DIV",
+   "level": 3,
+   "neurons": 6,
+   "rows": 23,
+   "states": 26,
+   "rounds": 7,
+   "sec": 1.36,
+   "calls": [
+    "ABS",
+    "LT",
+    "NEG",
+    "UDIV",
+    "lv"
+   ]
+  },
+  {
+   "name": "MOD",
+   "level": 3,
+   "neurons": 6,
+   "rows": 11,
+   "states": 12,
+   "rounds": 4,
+   "sec": 0.7,
+   "calls": [
+    "ABS",
+    "LT",
+    "NEG",
+    "UMOD",
+    "lv"
+   ]
+  },
+  {
+   "name": "LCM",
+   "level": 3,
+   "neurons": 6,
+   "rows": 5,
+   "states": 5,
+   "rounds": 3,
+   "sec": 0.45,
+   "calls": [
+    "GCD",
+    "MUL",
+    "UDIV",
+    "lv"
+   ]
+  },
+  {
+   "name": "ISPRIME",
+   "level": 3,
+   "neurons": 12,
+   "rows": 21,
+   "states": 24,
+   "rounds": 4,
+   "sec": 0.68,
+   "calls": [
+    "INC",
+    "LT",
+    "SQUARE",
+    "UMOD",
+    "lv"
+   ]
+  },
+  {
+   "name": "MODMUL",
+   "level": 3,
+   "neurons": 6,
+   "rows": 6,
+   "states": 6,
+   "rounds": 2,
+   "sec": 0.34,
+   "calls": [
+    "MUL",
+    "UMOD",
+    "lv"
+   ]
+  },
+  {
+   "name": "NCR",
+   "level": 3,
+   "neurons": 6,
+   "rows": 13,
+   "states": 14,
+   "rounds": 4,
+   "sec": 0.71,
+   "calls": [
+    "INC",
+    "LT",
+    "MUL",
+    "SUB",
+    "UDIV",
+    "lv"
+   ]
+  },
+  {
+   "name": "COPRIME",
+   "level": 3,
+   "neurons": 6,
+   "rows": 5,
+   "states": 5,
+   "rounds": 2,
+   "sec": 0.29,
+   "calls": [
+    "EQ",
+    "GCD",
+    "lv"
+   ]
+  },
+  {
+   "name": "SUMDIV",
+   "level": 3,
+   "neurons": 6,
+   "rows": 13,
+   "states": 15,
+   "rounds": 4,
+   "sec": 0.62,
+   "calls": [
+    "ADD",
+    "INC",
+    "LT",
+    "UMOD",
+    "lv"
+   ]
+  },
+  {
+   "name": "MODPOW",
+   "level": 4,
+   "neurons": 6,
+   "rows": 10,
+   "states": 12,
+   "rounds": 4,
+   "sec": 0.64,
+   "calls": [
+    "MODMUL",
+    "SHR",
+    "lv"
+   ]
+  },
+  {
+   "name": "NPRIME",
+   "level": 4,
+   "neurons": 6,
+   "rows": 10,
+   "states": 12,
+   "rounds": 3,
+   "sec": 0.47,
+   "calls": [
+    "DEC",
+    "INC",
+    "ISPRIME",
+    "lv"
+   ]
+  },
+  {
+   "name": "PHI",
+   "level": 4,
+   "neurons": 6,
+   "rows": 13,
+   "states": 15,
+   "rounds": 4,
+   "sec": 0.69,
+   "calls": [
+    "COPRIME",
+    "INC",
+    "LT",
+    "lv"
+   ]
+  },
+  {
+   "name": "PERFECT",
+   "level": 4,
+   "neurons": 6,
+   "rows": 5,
+   "states": 5,
+   "rounds": 2,
+   "sec": 0.33,
+   "calls": [
+    "EQ",
+    "SHL",
+    "SUMDIV",
+    "lv"
+   ]
+  },
+  {
+   "name": "CATALAN",
+   "level": 4,
+   "neurons": 6,
+   "rows": 6,
+   "states": 6,
+   "rounds": 3,
+   "sec": 0.49,
+   "calls": [
+    "INC",
+    "NCR",
+    "SHL",
+    "UDIV",
+    "lv"
+   ]
+  },
+  {
+   "name": "SORTED",
+   "level": 4,
+   "neurons": 6,
+   "rows": 18,
+   "states": 20,
+   "rounds": 5,
+   "sec": 0.79,
+   "calls": [
+    "GET",
+    "INC",
+    "LEN",
+    "LT",
+    "lv"
+   ]
+  },
+  {
+   "name": "LSUM",
+   "level": 4,
+   "neurons": 6,
+   "rows": 13,
+   "states": 14,
+   "rounds": 4,
+   "sec": 0.62,
+   "calls": [
+    "ADD",
+    "GET",
+    "INC",
+    "LEN",
+    "LT",
+    "lv"
+   ]
+  },
+  {
+   "name": "LMAX",
+   "level": 4,
+   "neurons": 6,
+   "rows": 14,
+   "states": 15,
+   "rounds": 3,
+   "sec": 0.53,
+   "calls": [
+    "GET",
+    "INC",
+    "LEN",
+    "LT",
+    "MAX",
+    "lv"
+   ]
+  },
+  {
+   "name": "DISTINCT",
+   "level": 5,
+   "neurons": 6,
+   "rows": 23,
+   "states": 26,
+   "rounds": 4,
+   "sec": 0.69,
+   "calls": [
+    "EQ",
+    "GET",
+    "INC",
+    "LEN",
+    "LT",
+    "lv"
+   ]
+  },
+  {
+   "name": "INVERS",
+   "level": 5,
+   "neurons": 6,
+   "rows": 22,
+   "states": 25,
+   "rounds": 4,
+   "sec": 0.67,
+   "calls": [
+    "GET",
+    "INC",
+    "LEN",
+    "LT",
+    "lv"
+   ]
+  },
+  {
+   "name": "NSORTED",
+   "level": 5,
+   "neurons": 6,
+   "rows": 6,
+   "states": 6,
+   "rounds": 2,
+   "sec": 0.31,
+   "calls": [
+    "EQ",
+    "INVERS",
+    "lv"
+   ]
+  },
+  {
+   "name": "NEXT",
+   "level": 6,
+   "neurons": 6,
+   "rows": 6,
+   "states": 6,
+   "rounds": 2,
+   "sec": 0.3,
+   "calls": [
+    "lv"
+   ]
+  },
+  {
+   "name": "CUR",
+   "level": 6,
+   "neurons": 6,
+   "rows": 4,
+   "states": 4,
+   "rounds": 2,
+   "sec": 0.32,
+   "calls": [
+    "lv"
+   ]
+  },
+  {
+   "name": "WS",
+   "level": 6,
+   "neurons": 6,
+   "rows": 17,
+   "states": 19,
+   "rounds": 4,
+   "sec": 0.67,
+   "calls": [
+    "CUR",
+    "EQ",
+    "NEXT",
+    "lv"
+   ]
+  },
+  {
+   "name": "ISDIG",
+   "level": 6,
+   "neurons": 6,
+   "rows": 7,
+   "states": 7,
+   "rounds": 3,
+   "sec": 0.51,
+   "calls": [
+    "AND",
+    "LT",
+    "lv"
+   ]
+  },
+  {
+   "name": "ISLET",
+   "level": 6,
+   "neurons": 6,
+   "rows": 9,
+   "states": 9,
+   "rounds": 3,
+   "sec": 0.51,
+   "calls": [
+    "AND",
+    "LT",
+    "OR",
+    "lv"
+   ]
+  },
+  {
+   "name": "NUM",
+   "level": 7,
+   "neurons": 6,
+   "rows": 4,
+   "states": 4,
+   "rounds": 2,
+   "sec": 0.29,
+   "calls": [
+    "lv"
+   ]
+  },
+  {
+   "name": "SNUM",
+   "level": 7,
+   "neurons": 6,
+   "rows": 34,
+   "states": 37,
+   "rounds": 6,
+   "sec": 1.11,
+   "calls": [
+    "CUR",
+    "EQ",
+    "ISDIG",
+    "NEG",
+    "NEXT",
+    "NUM",
+    "WS",
+    "lv"
+   ]
+  },
+  {
+   "name": "WORD",
+   "level": 7,
+   "neurons": 6,
+   "rows": 26,
+   "states": 29,
+   "rounds": 5,
+   "sec": 1.02,
+   "calls": [
+    "ADD",
+    "CUR",
+    "ISDIG",
+    "ISLET",
+    "LT",
+    "MUL",
+    "NEXT",
+    "SUB",
+    "lv"
+   ]
+  },
+  {
+   "name": "FIND",
+   "level": 7,
+   "neurons": 6,
+   "rows": 20,
+   "states": 22,
+   "rounds": 4,
+   "sec": 0.72,
+   "calls": [
+    "ADD",
+    "EQ",
+    "INC",
+    "LT",
+    "MUL",
+    "lv"
+   ]
+  },
+  {
+   "name": "SKID",
+   "level": 7,
+   "neurons": 6,
+   "rows": 7,
+   "states": 7,
+   "rounds": 3,
+   "sec": 0.55,
+   "calls": [
+    "ADD",
+    "MUL",
+    "lv"
+   ]
+  },
+  {
+   "name": "SKAR",
+   "level": 8,
+   "neurons": 6,
+   "rows": 7,
+   "states": 7,
+   "rounds": 3,
+   "sec": 0.53,
+   "calls": [
+    "ADD",
+    "MUL",
+    "lv"
+   ]
+  },
+  {
+   "name": "PRD",
+   "level": 8,
+   "neurons": 6,
+   "rows": 15,
+   "states": 16,
+   "rounds": 3,
+   "sec": 0.55,
+   "calls": [
+    "ADD",
+    "LT",
+    "PRD",
+    "UDIV",
+    "UMOD",
+    "lv"
+   ]
+  },
+  {
+   "name": "PRN",
+   "level": 9,
+   "neurons": 6,
+   "rows": 12,
+   "states": 13,
+   "rounds": 3,
+   "sec": 0.49,
+   "calls": [
+    "LT",
+    "NEG",
+    "PRD",
+    "lv"
+   ]
+  },
+  {
+   "name": "PRINT",
+   "level": 9,
+   "neurons": 6,
+   "rows": 9,
+   "states": 9,
+   "rounds": 4,
+   "sec": 0.64,
+   "calls": [
+    "PRN",
+    "lv"
+   ]
+  },
+  {
+   "name": "FARGS",
+   "level": 10,
+   "neurons": 12,
+   "rows": 63,
+   "states": 68,
+   "rounds": 9,
+   "sec": 2.1,
+   "calls": [
+    "CUR",
+    "EQ",
+    "EXPR",
+    "NEXT",
+    "SKAR",
+    "SKID",
+    "WS",
+    "lv"
+   ]
+  },
+  {
+   "name": "ATOM",
+   "level": 10,
+   "neurons": 13,
+   "rows": 70,
+   "states": 78,
+   "rounds": 16,
+   "sec": 4.09,
+   "calls": [
+    "CUR",
+    "EQ",
+    "EXPR",
+    "FARGS",
+    "FIND",
+    "ISDIG",
+    "ISLET",
+    "NEXT",
+    "NUM",
+    "WORD",
+    "WS",
+    "lv"
+   ]
+  },
+  {
+   "name": "POWER",
+   "level": 10,
+   "neurons": 6,
+   "rows": 24,
+   "states": 26,
+   "rounds": 5,
+   "sec": 0.84,
+   "calls": [
+    "ATOM",
+    "CUR",
+    "EQ",
+    "LT",
+    "NEXT",
+    "POW",
+    "UNARY",
+    "WS",
+    "lv"
+   ]
+  },
+  {
+   "name": "UNARY",
+   "level": 10,
+   "neurons": 12,
+   "rows": 21,
+   "states": 23,
+   "rounds": 4,
+   "sec": 0.71,
+   "calls": [
+    "CUR",
+    "EQ",
+    "NEG",
+    "NEXT",
+    "POWER",
+    "UNARY",
+    "WS",
+    "lv"
+   ]
+  },
+  {
+   "name": "TERM",
+   "level": 10,
+   "neurons": 6,
+   "rows": 41,
+   "states": 46,
+   "rounds": 11,
+   "sec": 2.2,
+   "calls": [
+    "CUR",
+    "DIV",
+    "EQ",
+    "MOD",
+    "MUL",
+    "NEXT",
+    "UNARY",
+    "WS",
+    "lv"
+   ]
+  },
+  {
+   "name": "EXPR",
+   "level": 10,
+   "neurons": 6,
+   "rows": 32,
+   "states": 35,
+   "rounds": 6,
+   "sec": 1.07,
+   "calls": [
+    "ADD",
+    "CUR",
+    "EQ",
+    "NEXT",
+    "SUB",
+    "TERM",
+    "WS",
+    "lv"
+   ]
+  },
+  {
+   "name": "LISTARGS",
+   "level": 11,
+   "neurons": 12,
+   "rows": 20,
+   "states": 21,
+   "rounds": 5,
+   "sec": 0.98,
+   "calls": [
+    "CUR",
+    "EQ",
+    "INC",
+    "SNUM",
+    "WS",
+    "lv"
+   ]
+  },
+  {
+   "name": "CMDARGS",
+   "level": 11,
+   "neurons": 6,
+   "rows": 52,
+   "states": 56,
+   "rounds": 10,
+   "sec": 2.21,
+   "calls": [
+    "CUR",
+    "EQ",
+    "SKID",
+    "UNARY",
+    "WS",
+    "lv"
+   ]
+  },
+  {
+   "name": "ARGV",
+   "level": 12,
+   "neurons": 12,
+   "rows": 49,
+   "states": 57,
+   "rounds": 10,
+   "sec": 2.34,
+   "calls": [
+    "ADD",
+    "DEC",
+    "EQ",
+    "INC",
+    "MUL",
+    "SUB",
+    "lv"
+   ]
+  },
+  {
+   "name": "FIELD",
+   "level": 12,
+   "neurons": 6,
+   "rows": 4,
+   "states": 4,
+   "rounds": 2,
+   "sec": 0.28,
+   "calls": [
+    "ADD",
+    "lv"
+   ]
+  },
+  {
+   "name": "APPLY1",
+   "level": 13,
+   "neurons": 6,
+   "rows": 13,
+   "states": 13,
+   "rounds": 5,
+   "sec": 0.81,
+   "calls": [
+    "ARGV",
+    "FIELD",
+    "lv"
+   ]
+  },
+  {
+   "name": "OPV",
+   "level": 13,
+   "neurons": 6,
+   "rows": 15,
+   "states": 17,
+   "rounds": 4,
+   "sec": 0.69,
+   "calls": [
+    "ADD",
+    "EQ",
+    "MUL",
+    "SUB",
+    "lv"
+   ]
+  },
+  {
+   "name": "EVALP",
+   "level": 14,
+   "neurons": 12,
+   "rows": 44,
+   "states": 47,
+   "rounds": 7,
+   "sec": 1.46,
+   "calls": [
+    "ADD",
+    "APPLY1",
+    "ARGV",
+    "EQ",
+    "FIELD",
+    "MUL",
+    "OPV",
+    "lv"
+   ]
+  },
+  {
+   "name": "TRYP",
+   "level": 15,
+   "neurons": 6,
+   "rows": 27,
+   "states": 29,
+   "rounds": 5,
+   "sec": 0.96,
+   "calls": [
+    "ADD",
+    "EQ",
+    "INC",
+    "LT",
+    "MUL",
+    "lv"
+   ]
+  },
+  {
+   "name": "ATCALC",
+   "level": 15,
+   "neurons": 6,
+   "rows": 41,
+   "states": 44,
+   "rounds": 8,
+   "sec": 1.68,
+   "calls": [
+    "ADD",
+    "EQ",
+    "INC",
+    "LT",
+    "MUL",
+    "lv"
+   ]
+  },
+  {
+   "name": "VEC",
+   "level": 15,
+   "neurons": 6,
+   "rows": 8,
+   "states": 8,
+   "rounds": 3,
+   "sec": 0.48,
+   "calls": [
+    "ADD",
+    "MUL",
+    "lv"
+   ]
+  },
+  {
+   "name": "RES",
+   "level": 15,
+   "neurons": 6,
+   "rows": 7,
+   "states": 7,
+   "rounds": 3,
+   "sec": 0.47,
+   "calls": [
+    "ADD",
+    "MUL",
+    "lv"
+   ]
+  },
+  {
+   "name": "PAIROK",
+   "level": 16,
+   "neurons": 6,
+   "rows": 20,
+   "states": 22,
+   "rounds": 5,
+   "sec": 0.88,
+   "calls": [
+    "EQ",
+    "INC",
+    "LT",
+    "OPV",
+    "RES",
+    "VEC",
+    "lv"
+   ]
+  },
+  {
+   "name": "NESTT",
+   "level": 16,
+   "neurons": 6,
+   "rows": 19,
+   "states": 21,
+   "rounds": 4,
+   "sec": 0.68,
+   "calls": [
+    "EQ",
+    "INC",
+    "LT",
+    "RES",
+    "VEC",
+    "lv"
+   ]
+  },
+  {
+   "name": "CONSTOK",
+   "level": 16,
+   "neurons": 6,
+   "rows": 19,
+   "states": 21,
+   "rounds": 4,
+   "sec": 0.71,
+   "calls": [
+    "EQ",
+    "INC",
+    "LT",
+    "OPV",
+    "RES",
+    "VEC",
+    "lv"
+   ]
+  },
+  {
+   "name": "CONSTS",
+   "level": 17,
+   "neurons": 6,
+   "rows": 55,
+   "states": 61,
+   "rounds": 7,
+   "sec": 1.62,
+   "calls": [
+    "ADD",
+    "CONSTOK",
+    "EQ",
+    "INC",
+    "LT",
+    "MUL",
+    "OPV",
+    "PRN",
+    "lv"
+   ]
+  },
+  {
+   "name": "COMBO",
+   "level": 17,
+   "neurons": 19,
+   "rows": 64,
+   "states": 72,
+   "rounds": 13,
+   "sec": 3.19,
+   "calls": [
+    "ADD",
+    "EQ",
+    "INC",
+    "LT",
+    "OPV",
+    "PAIROK",
+    "PRN",
+    "lv"
+   ]
+  },
+  {
+   "name": "NEST",
+   "level": 17,
+   "neurons": 14,
+   "rows": 56,
+   "states": 63,
+   "rounds": 10,
+   "sec": 2.38,
+   "calls": [
+    "ADD",
+    "EQ",
+    "INC",
+    "LT",
+    "NESTT",
+    "PRN",
+    "lv"
+   ]
+  },
+  {
+   "name": "FROMP",
+   "level": 17,
+   "neurons": 6,
+   "rows": 29,
+   "states": 32,
+   "rounds": 5,
+   "sec": 0.93,
+   "calls": [
+    "EQ",
+    "INC",
+    "LT",
+    "PRN",
+    "TRYP",
+    "lv"
+   ]
+  },
+  {
+   "name": "ANSWER",
+   "level": 18,
+   "neurons": 6,
+   "rows": 39,
+   "states": 44,
+   "rounds": 5,
+   "sec": 0.97,
+   "calls": [
+    "ATCALC",
+    "COMBO",
+    "CONSTS",
+    "FROMP",
+    "MIN",
+    "NEST",
+    "lv"
+   ]
+  },
+  {
+   "name": "SEQ",
+   "level": 19,
+   "neurons": 7,
+   "rows": 35,
+   "states": 36,
+   "rounds": 8,
+   "sec": 1.66,
+   "calls": [
+    "ADD",
+    "ANSWER",
+    "CUR",
+    "EQ",
+    "INC",
+    "MUL",
+    "SNUM",
+    "WS",
+    "lv"
+   ]
+  },
+  {
+   "name": "SOLVE",
+   "level": 19,
+   "neurons": 12,
+   "rows": 62,
+   "states": 66,
+   "rounds": 12,
+   "sec": 3.03,
+   "calls": [
+    "ADD",
+    "ANSWER",
+    "CUR",
+    "EQ",
+    "INC",
+    "ISDIG",
+    "MUL",
+    "NEXT",
+    "SNUM",
+    "WS",
+    "lv"
+   ]
+  },
+  {
+   "name": "LINE",
+   "level": 20,
+   "neurons": 38,
+   "rows": 91,
+   "states": 100,
+   "rounds": 18,
+   "sec": 6.22,
+   "calls": [
+    "CMDARGS",
+    "CUR",
+    "EQ",
+    "EXPR",
+    "FIND",
+    "ISLET",
+    "LISTARGS",
+    "NEXT",
+    "PRN",
+    "SEQ",
+    "SKAR",
+    "SKID",
+    "SOLVE",
+    "WORD",
+    "WS",
+    "lv"
+   ]
+  },
+  {
+   "name": "MAIN",
+   "level": 21,
+   "neurons": 6,
+   "rows": 32,
+   "states": 34,
+   "rounds": 5,
+   "sec": 0.95,
+   "calls": [
+    "CUR",
+    "EQ",
+    "NEXT",
+    "lv"
+   ]
+  },
+  {
+   "name": "NOT",
+   "level": 22,
+   "neurons": 6,
+   "rows": 6,
+   "states": 6,
+   "rounds": 3,
+   "sec": 0.47,
+   "calls": [
+    "SUB",
+    "lv"
+   ]
+  },
+  {
+   "name": "HAS",
+   "level": 22,
+   "neurons": 6,
+   "rows": 4,
+   "states": 4,
+   "rounds": 2,
+   "sec": 0.32,
+   "calls": [
+    "AND",
+    "EQ",
+    "lv"
+   ]
+  },
+  {
+   "name": "OPF",
+   "level": 22,
+   "neurons": 6,
+   "rows": 8,
+   "states": 8,
+   "rounds": 3,
+   "sec": 0.47,
+   "calls": [
+    "ADD",
+    "MUL",
+    "lv"
+   ]
+  },
+  {
+   "name": "STEPF",
+   "level": 23,
+   "neurons": 6,
+   "rows": 9,
+   "states": 9,
+   "rounds": 4,
+   "sec": 0.63,
+   "calls": [
+    "AND",
+    "NOT",
+    "OPF",
+    "OR",
+    "lv"
+   ]
+  },
+  {
+   "name": "MEMOK",
+   "level": 23,
+   "neurons": 6,
+   "rows": 25,
+   "states": 27,
+   "rounds": 5,
+   "sec": 0.86,
+   "calls": [
+    "ADD",
+    "EQ",
+    "LT",
+    "MUL",
+    "UMOD",
+    "lv"
+   ]
+  },
+  {
+   "name": "KEEP",
+   "level": 23,
+   "neurons": 6,
+   "rows": 18,
+   "states": 19,
+   "rounds": 4,
+   "sec": 0.66,
+   "calls": [
+    "ADD",
+    "INC",
+    "LT",
+    "lv"
+   ]
+  },
+  {
+   "name": "PDFS",
+   "level": 24,
+   "neurons": 12,
+   "rows": 55,
+   "states": 63,
+   "rounds": 9,
+   "sec": 1.99,
+   "calls": [
+    "ADD",
+    "EQ",
+    "HAS",
+    "INC",
+    "KEEP",
+    "LT",
+    "MEMOK",
+    "OPF",
+    "PDFS",
+    "STEPF",
+    "lv"
+   ]
+  },
+  {
+   "name": "MKPLAN",
+   "level": 25,
+   "neurons": 6,
+   "rows": 25,
+   "states": 26,
+   "rounds": 5,
+   "sec": 0.87,
+   "calls": [
+    "ADD",
+    "INC",
+    "LT",
+    "PDFS",
+    "lv"
+   ]
+  },
+  {
+   "name": "PLANCOST",
+   "level": 25,
+   "neurons": 6,
+   "rows": 10,
+   "states": 11,
+   "rounds": 3,
+   "sec": 0.49,
+   "calls": [
+    "MKPLAN",
+    "NEG",
+    "lv"
+   ]
+  },
+  {
+   "name": "PLANOPS",
+   "level": 25,
+   "neurons": 6,
+   "rows": 18,
+   "states": 19,
+   "rounds": 4,
+   "sec": 0.73,
+   "calls": [
+    "ADD",
+    "INC",
+    "LT",
+    "MKPLAN",
+    "MUL",
+    "lv"
+   ]
+  },
+  {
+   "name": "SHOWP",
+   "level": 25,
+   "neurons": 6,
+   "rows": 15,
+   "states": 16,
+   "rounds": 3,
+   "sec": 0.48,
+   "calls": [
+    "ADD",
+    "INC",
+    "LT",
+    "lv"
+   ]
+  },
+  {
+   "name": "PREPARE",
+   "level": 26,
+   "neurons": 12,
+   "rows": 37,
+   "states": 40,
+   "rounds": 7,
+   "sec": 1.41,
+   "calls": [
+    "LT",
+    "MKPLAN",
+    "SHOWP",
+    "lv"
+   ]
+  },
+  {
+   "name": "STATUS",
+   "level": 26,
+   "neurons": 6,
+   "rows": 8,
+   "states": 8,
+   "rounds": 3,
+   "sec": 0.46,
+   "calls": [
+    "lv"
+   ]
+  },
+  {
+   "name": "UPDATE",
+   "level": 27,
+   "neurons": 6,
+   "rows": 6,
+   "states": 6,
+   "rounds": 3,
+   "sec": 0.44,
+   "calls": [
+    "PREPARE",
+    "lv"
+   ]
+  },
+  {
+   "name": "RECOVER",
+   "level": 27,
+   "neurons": 6,
+   "rows": 23,
+   "states": 24,
+   "rounds": 4,
+   "sec": 0.7,
+   "calls": [
+    "AND",
+    "DEC",
+    "LT",
+    "NOT",
+    "OR",
+    "POW",
+    "PREPARE",
+    "lv"
+   ]
+  },
+  {
+   "name": "APPROVE",
+   "level": 28,
+   "neurons": 12,
+   "rows": 46,
+   "states": 50,
+   "rounds": 6,
+   "sec": 1.26,
+   "calls": [
+    "ADD",
+    "HAS",
+    "INC",
+    "LT",
+    "OPF",
+    "RECOVER",
+    "STEPF",
+    "lv"
+   ]
+  },
+  {
+   "name": "CANCEL",
+   "level": 28,
+   "neurons": 6,
+   "rows": 10,
+   "states": 10,
+   "rounds": 4,
+   "sec": 0.62,
+   "calls": [
+    "lv"
+   ]
+  }
+ ],
+ "hash": {
+  "AND": "52dfced59d95",
+  "OR": "470c44aff47c",
+  "XOR": "71ad941fc91e",
+  "ADD": "507407c44102",
+  "SUB": "7352d4459871",
+  "SHL": "8e865144d312",
+  "SHR": "87aae0b9339d",
+  "LT": "bf536f2fa808",
+  "EQ": "adcc01b1a009",
+  "GET": "513950c6cc2f",
+  "LEN": "b77c3fcace0e",
+  "INC": "166631a83097",
+  "DEC": "cf9931c120e7",
+  "MIN": "b328f43bcca7",
+  "MAX": "854d6c9d8470",
+  "MUL": "22c67a7e3948",
+  "UMOD": "3e89a82b4620",
+  "UDIV": "a1ecd2b5c6f4",
+  "NEG": "2cc28da5c763",
+  "ABS": "20984c54acc5",
+  "SQUARE": "b9aadf7927f9",
+  "POW": "d176611116fd",
+  "GCD": "884e6374c214",
+  "FACT": "00b5425c77e8",
+  "FIB": "434b804358ee",
+  "DIGSUM": "85bdf30a45de",
+  "ISQRT": "c0fc7b9272b0",
+  "COLLATZ": "a95469356fdb",
+  "DIV": "742b4978ee43",
+  "MOD": "c34d93ace6d0",
+  "LCM": "0b6a1e7dd835",
+  "ISPRIME": "5a85c68f54c5",
+  "MODMUL": "5acfa22f9b56",
+  "NCR": "4634f5c5ebb0",
+  "COPRIME": "e807dd714e3a",
+  "SUMDIV": "268a336024c9",
+  "MODPOW": "6f2877c336f5",
+  "NPRIME": "4a4eb6693be3",
+  "PHI": "b459237b6f21",
+  "PERFECT": "825430bba6f1",
+  "CATALAN": "19a78045fb0c",
+  "SORTED": "29ab4acece4a",
+  "LSUM": "3e70f371490b",
+  "LMAX": "08dc82e822c5",
+  "DISTINCT": "6c381891bf5f",
+  "INVERS": "b380b1cdf48b",
+  "NSORTED": "339af4f70e23",
+  "NEXT": "eacd3d902ba0",
+  "CUR": "7ef7625c6dfc",
+  "WS": "859f0d082a62",
+  "ISDIG": "e0dc84b3bf99",
+  "ISLET": "d0bcfb88d90b",
+  "NUM": "89edea9bc7b0",
+  "SNUM": "6caeb5c4f81b",
+  "WORD": "ab772532d830",
+  "FIND": "0e7ca7ddef02",
+  "SKID": "ac36d5f02af7",
+  "SKAR": "e7c12d03244f",
+  "PRD": "c5c424625927",
+  "PRN": "fc97929b39f1",
+  "PRINT": "b7bd584fb07d",
+  "FARGS": "75cb6dbba414",
+  "ATOM": "1af15bddde02",
+  "POWER": "93bc5ed02c92",
+  "UNARY": "9b78bfd3fb34",
+  "TERM": "6777b0829977",
+  "EXPR": "2c2ec4b96441",
+  "LISTARGS": "1cad675f2246",
+  "CMDARGS": "f4c3e660efa1",
+  "ARGV": "c8730c3b0558",
+  "FIELD": "87c9b2cc3b21",
+  "APPLY1": "7b24240f02bb",
+  "OPV": "aec397f4a96b",
+  "EVALP": "22b69de656d9",
+  "TRYP": "2494e0a1817b",
+  "ATCALC": "5eb680b6e7dd",
+  "VEC": "3f4ca2487a3c",
+  "RES": "99ea9aa60fb5",
+  "PAIROK": "a29fc4bea5ed",
+  "NESTT": "fe96d9a6abaf",
+  "CONSTOK": "73dd00f74bf3",
+  "CONSTS": "6cba8b6c0083",
+  "COMBO": "cf9e817921e4",
+  "NEST": "47a407610514",
+  "FROMP": "f4568fa5c436",
+  "ANSWER": "982b5fd8cd4b",
+  "SEQ": "3d44074584ce",
+  "SOLVE": "2b75fdf298bd",
+  "LINE": "1a728196bc4e",
+  "MAIN": "3de841b9f17a",
+  "NOT": "bc0c1fe1427e",
+  "HAS": "4c2dbf90b30e",
+  "OPF": "725b19d0ecba",
+  "STEPF": "4d4769c89929",
+  "MEMOK": "d2e2fd1fdf3a",
+  "KEEP": "8579bb99db6c",
+  "PDFS": "1a52d77ebac6",
+  "MKPLAN": "5eec5ea74201",
+  "PLANCOST": "09eda1718001",
+  "PLANOPS": "d573901740ad",
+  "SHOWP": "671217f8da67",
+  "PREPARE": "dd873c0b2e79",
+  "STATUS": "9f0f2eebc0bf",
+  "UPDATE": "22ec44c924d3",
+  "RECOVER": "597cbc49c2be",
+  "APPROVE": "59969cc54353",
+  "CANCEL": "e846b56d92be"
+ },
+ "sec": 94
+}

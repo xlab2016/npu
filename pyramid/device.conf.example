@@ -1,0 +1,10 @@
+# Скопируйте в device.conf. Значения взяты из Config/geron.runtime.json проекта GERON.
+REPO=/path/to/tiketcore
+BRANCH=main
+REMOTE=origin
+CLONE_URL=https://github.com/eremakar/tiketcore
+BUILD_TARGET=$REPO/src/Ticketing.sln
+CONFIG=Release
+APPHOST=$REPO/src/Ticketing.Host/Ticketing.Host.csproj
+RESOURCE=Ticketing
+HEALTH_URL=http://localhost:20088/api/v1/health
