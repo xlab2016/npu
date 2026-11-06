@@ -1,3 +1,12 @@
+Neuro Processor Unit.
+
+Implementation of AGI architecture candidate:
+
+<img width="1866" height="684" alt="image" src="https://github.com/user-attachments/assets/9610a447-f3e4-4083-b890-bfd2d5d2733d" />
+
+Neuro processor is not a brain like process as transformer it's a part of Nero Core Unit structure.
+Neuro processor is a pyramid of learnable elements by specific neurons, that learns forever and never forget knowledge.
+
 # neurocpu (nc)
 
 Эмулятор CPU, которым такт за тактом управляет саморастущая сеть геометрических нейронов без спайков.
@@ -159,9 +168,9 @@
 
 Аргументы команды через пробел: число, функция или скобки (`MUL (2+3) 4`). Команды `PROG/RUN` здесь нет: новое поведение показывается уроком.
 
-### Управление обновлениями (как в GERON)
+### Управление обновлениями
 
-`operations.json` это манифест операций GERON; `python3 mktab.py` переводит его в данные `update.tab`. Планирование с минимальной ценой, подтверждение и восстановление это навыки уровней 22–28, git, dotnet и aspire выполняет сценарий `device.sh` с настройками `device.conf`.
+`operations.json` это манифест операций; `python3 mktab.py` переводит его в данные `update.tab`. Планирование с минимальной ценой, подтверждение и восстановление это навыки уровней 22–28, git, dotnet и aspire выполняет сценарий `device.sh` с настройками `device.conf`.
 
     UPDATE     прочитать состояние, показать план
     APPROVE    выполнить показанный план один раз; при сбое показать план восстановления
